@@ -1,5 +1,8 @@
 package zuul.withenums.v2;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * This class is the main class of the "World of Zuul" application.
  * "World of Zuul" is a very simple, text based adventure game. Users can walk
@@ -21,11 +24,14 @@ public class Game {
     private Parser parser;
     private Room currentRoom;
     private Room beamerRoom;
+    private ArrayList<Room> rooms;
+    private Room randomRoom;
 
     /**
      * Create the game and initialise its internal map.
      */
     public Game() {
+        rooms = new ArrayList<Room>();
         createRooms();
         parser = new Parser();
     }
@@ -79,6 +85,18 @@ public class Game {
 
         currentRoom = bedroom; // start game outside
         beamerRoom = bedroom;
+        randomRoom = toilets;
+        
+        //Add rooms in list of all rooms
+        //
+        rooms.add(delivery_room);
+        rooms.add(intense_care_room);
+        rooms.add(bedroom);
+        rooms.add(restaurant);
+        rooms.add(reception);
+        rooms.add(corridor);
+        rooms.add(wait_room);
+        rooms.add(parking);
     }
 
     /**
@@ -176,6 +194,9 @@ public class Game {
         } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            if(currentRoom.equals(randomRoom)) {
+                goRandomRoom();
+            }
         }
     }
 
@@ -218,6 +239,18 @@ public class Game {
             System.out.println("Invalid command beamer !");
             return;
         }
+        
+    }
+    
+    private void goRandomRoom(){
+        int nbRoom = rooms.size();
+        
+        int random = (int)(Math.random() * (nbRoom));
+        
+        System.out.println("\n ------- Aaaaah !! you're sucked into a black hole -------\n");
+        
+        currentRoom = (Room) rooms.get(random);
+        System.out.println(currentRoom.getLongDescription());              
         
     }
 }
