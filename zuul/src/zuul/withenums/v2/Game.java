@@ -82,6 +82,12 @@ public class Game {
 
         toilets.setExit("north", intense_care_room);
         toilets.setExit("west", corridor);
+        
+        //Create character
+        //
+        Character John = new Character("John", "Don't go to the east.");
+        
+        corridor.addCharacter(John);
 
         currentRoom = bedroom; // start game outside
         beamerRoom = bedroom;
@@ -194,6 +200,15 @@ public class Game {
         } else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+            //Check if there are Character in the room
+            //
+            Character person = currentRoom.getCharacter(); 
+            if(person != null && !person.hasSpoken()) {
+                System.out.println("\nThere are a person in this Room...\n" + person.getName() + ": " + person.getDialogue());
+                person.setHasSpoken(true);
+            }
+            //Check that is randomRoom
+            //
             if(currentRoom.equals(randomRoom)) {
                 goRandomRoom();
             }

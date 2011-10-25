@@ -21,6 +21,7 @@ import java.util.Iterator;
 public class Room {
 	private String description;
 	private HashMap<String, Room> exits; // stores exits of this room.
+	private Character person;
 
 	/**
 	 * Create a room described "description". Initially, it has no exits.
@@ -89,5 +90,13 @@ public class Room {
 	 */
 	public Room getExit(String direction) {
 		return exits.get(direction);
+	}
+	
+	public void addCharacter(Character person) {
+	    this.person = person;
+	}
+	
+	public Character getCharacter() {
+	    return this.person;
 	}
 }
