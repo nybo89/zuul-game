@@ -1,7 +1,6 @@
 package zuul.withenums.v2;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * This class is the main class of the "World of Zuul" application.
@@ -231,9 +230,10 @@ public class Game {
     }
 
     /**
-     * 
+     * Try to use beamer device. When you charge the beamer, it memorizes the current room.
+     * When you fire the beamer, it transports you immediately back to the room it was
+     * charged in.
      */
-
     private void beamer(Command command){
         if (!command.hasSecondWord()) {
             // if there is no second word, we don't know what to do...
@@ -257,6 +257,9 @@ public class Game {
         
     }
     
+    /**
+     * Randomly transported into one of the other rooms.
+     */
     private void goRandomRoom(){
         int nbRoom = rooms.size();
         
