@@ -10,11 +10,11 @@ package nolspotlex.v1;
  * @version 25.10.2011
  */
 public class Character {
-    
+
     private String name;
     private String dialogue;
     private boolean hasSpoken;
-    
+
     public Character(String name, String dialogue) {
         this.name = name;
         this.dialogue = dialogue;
