@@ -13,7 +13,7 @@ import org.junit.Test;
  * @author Alexandre Boursier & Nolan Potier
  * @version 2011.10.28
  */
-public class TestGame {
+public class GameTest {
 
     Game G;
     ArrayList<Type> chosen_rooms;
