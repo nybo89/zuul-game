@@ -1,13 +1,13 @@
 package nolspotlex.v1;
 
 /**
- * This class is part of the "World of Zuul" application. "World of Zuul" is a
+ * This class is part of the "World of olsxPotLe" application. "World of olsxPotLe" is a
  * very simple, text based adventure game.
  * 
  * A "Character" represents one person in the scenery of the game. He can give you some indication.
  * 
- * @author Nolan Potier
- * @version 25.10.2011
+ * @author Alexandre Boursier & Nolan Potier
+ * @version 2011.10.25
  */
 public class Character {
 
@@ -22,14 +22,16 @@ public class Character {
     }
 
     /**
-     * @return the name
+     * @return the name of character
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param name the name to set
+     * Define the name of character
+     * @param name
+     *           the name to set
      */
     public void setName(String name) {
         this.name = name;
@@ -43,13 +45,18 @@ public class Character {
     }
 
     /**
-     * @param dialogue the dialogue to set
+     * Define the dialogue of character when meeting
+     * 
+     * @param dialogue 
+     *          the dialogue to set
      */
     public void setDialogue(String dialogue) {
         this.dialogue = dialogue;
     }
 
     /**
+     * Check if character has spoken or not
+     * 
      * @return the hasSpoken
      */
     public boolean hasSpoken() {
@@ -57,7 +64,10 @@ public class Character {
     }
 
     /**
-     * @param hasSpoken the hasSpoken to set
+     * Define if character has spoken or not
+     * 
+     * @param hasSpoken 
+     *          the hasSpoken to set
      */
     public void setHasSpoken(boolean hasSpoken) {
         this.hasSpoken = hasSpoken;
