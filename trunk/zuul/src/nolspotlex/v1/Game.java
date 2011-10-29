@@ -77,8 +77,8 @@ public class Game {
 		waiting_room = new Room("in the waiting room", Type.WAITING_ROOM);
 		restaurant = new Room("in the restaurant", Type.RESTAURANT);
 		outside = new Room("outside !!", Type.OUTSIDE);
-		trap_room = new Room("falling into a trap !! Find a easy way to get out of it", Type.TRAP_ROOM);
-		way_to_go = new Room("close to a such familiar place...", Type.WAY_TO_GO);
+		trap_room = new Room("in a dark room with strange noises.. Get out of here now !", Type.TRAP_ROOM);
+		way_to_go = new Room("in another room close to a such familiar place...", Type.WAY_TO_GO);
 
 		// Initialise room exits
 		bedroom.setExit("east", intense_care_room);
@@ -273,8 +273,6 @@ public class Game {
 		return wantToQuit;
 	}
 
-	// implementations of user commands:
-
 	/**
 	 * Print out some help information. Here we print some stupid, cryptic
 	 * message and a list of the command words.
@@ -339,7 +337,7 @@ public class Game {
 			//
 			Character person = currentRoom.getCharacter(); 
 			if(person != null && !person.hasSpoken()) {
-				System.out.println("\nThere are a person in this Room...\n" + person.getName() + ": " + person.getDialogue());
+				System.out.println("\nThere is a person in this Room...\n" + person.getName() + ": " + person.getDialogue());
 				person.setHasSpoken(true);
 			}
 			//Check that is randomRoom
@@ -352,6 +350,10 @@ public class Game {
 			// No  : he falls into the trap
 			if (!is_catched_by_trap && currentRoom.getType().equals(chosen_trap.getType()))
 			{
+				System.out.println();
+				System.out.println("------ Aaaahh !! You are falling into a trap -----------");
+				System.out.println();
+
 				for(Room r : rooms){
 					if(r.getType().equals(Type.TRAP_ROOM)){
 						currentRoom = r;
@@ -509,8 +511,7 @@ public class Game {
 		System.out.println("\n ------- Aaaaah !! you're sucked into a black hole -------\n");
 
 		currentRoom = (Room) rooms.get(random);
-		System.out.println(currentRoom.getLongDescription());              
-
+		System.out.println(currentRoom.getLongDescription()); 
 	}
 
 	/**
