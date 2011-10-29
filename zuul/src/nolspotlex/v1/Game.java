@@ -40,6 +40,8 @@ public class Game {
     private Room chosen_trap;
     // Fix a number of rooms for choosing the trap
     private static final int NB_ROOM_TRAP = 6;
+    // Fix a number of rooms for choosing the teleport room
+    private static final int NB_ROOM_TELEPORT = 8;
     // Build a list which contains all the current rooms of the game
     private static ArrayList<Room> rooms;
     // Check if the player owns the key
@@ -505,19 +507,16 @@ public class Game {
      * Randomly transported into one of the other rooms.
      */
     private void goRandomRoom(){
-        int nbRoom = rooms.size();
-
-        int random = (int)(Math.random() * (nbRoom));
-
-        System.out.println("\n ------- Aaaaah !! you're sucked into a black hole -------\n");
-
-        // Removing toilets and outside
-        rooms.remove(4);
-        rooms.remove(7);
         
-        System.out.println(rooms.get(4).getShortDescription());
-        System.out.println(rooms.get(7).getShortDescription());
-        currentRoom = (Room) rooms.get(random);
+        int random = (int)(Math.random() * NB_ROOM_TELEPORT);
+        // Select a random room
+        Type teleport = Type.values()[random];
+        for(Room r : rooms){
+            if(r.getType().equals(teleport)){
+                currentRoom = r;
+            }
+        }
+        System.out.println("\n ------- Aaaaah !! you're sucked into a black hole -------\n");
         System.out.println(currentRoom.getLongDescription()); 
     }
 
