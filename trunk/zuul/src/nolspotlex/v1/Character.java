@@ -1,4 +1,4 @@
-package zuul.withenums.v2;
+package nolspotlex.v1;
 
 /**
  * This class is part of the "World of Zuul" application. "World of Zuul" is a

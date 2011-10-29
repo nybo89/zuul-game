@@ -1,4 +1,4 @@
-package zuul.withenums.v2;
+package nolspotlex.v1;
 
 /**
  * Representations for all the valid command words for the game along with a
@@ -10,7 +10,7 @@ package zuul.withenums.v2;
 public enum CommandWord {
 	// A value for each command word along with its
 	// corresponding user interface string.
-	GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), BEAMER("beamer");
+	GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), BEAMER("beamer"),TAKE("take"), USE("use");
 
 	// The command string.
 	private String commandString;
