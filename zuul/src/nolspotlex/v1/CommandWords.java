@@ -1,4 +1,4 @@
-package zuul.withenums.v2;
+package nolspotlex.v1;
 
 import java.util.HashMap;
 

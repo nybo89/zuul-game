@@ -1,6 +1,8 @@
-package zuul.withenums.v2;
+package nolspotlex.v1;
 
 import static org.junit.Assert.*;
+
+import nolspotlex.v1.Character;
 
 import org.junit.After;
 import org.junit.Before;

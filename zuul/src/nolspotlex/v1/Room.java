@@ -1,8 +1,7 @@
-package zuul.better;
+package nolspotlex.v1;
 
 import java.util.Set;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Class Room - a room in an adventure game.
@@ -19,8 +18,10 @@ import java.util.Iterator;
  */
 
 public class Room {
+	private Type nom;
 	private String description;
 	private HashMap<String, Room> exits; // stores exits of this room.
+	private Character person;
 
 	/**
 	 * Create a room described "description". Initially, it has no exits.
@@ -29,9 +30,12 @@ public class Room {
 	 * @param description
 	 *            The room's description.
 	 */
-	public Room(String description) {
+	public Room(String description, Type type) {
+		this.nom = type;
 		this.description = description;
 		exits = new HashMap<String, Room>();
+		// add the room to the dictionnary
+		Game.addRoom(this);
 	}
 
 	/**
@@ -89,5 +93,27 @@ public class Room {
 	 */
 	public Room getExit(String direction) {
 		return exits.get(direction);
+	}
+	
+	public void addCharacter(Character person) {
+	    this.person = person;
+	}
+	
+	public Character getCharacter() {
+	    return this.person;
+	}
+	
+	/**
+	 * @return the name of the room
+	 */
+	public Type getType() {
+		return nom;
+	}
+	
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
