@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class CharacterTest {
-    
+
     Character person;
 
     @Before
@@ -21,7 +21,7 @@ public class CharacterTest {
     public void tearDown() throws Exception {
     }
 
-    
+
     @Test
     public void testGetName() {
         assertEquals("George", person.getName());
