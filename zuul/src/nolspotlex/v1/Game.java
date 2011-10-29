@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  * This class is the main class of the "World of NolsPotLex" application.
- * "World of NolsxPotLe" is a very simple, text based adventure game. Users can walk
+ * "World of NolsPotLex" is a very simple, text based adventure game. Users can walk
  * around some scenery. That's all. It should really be extended to make it more
  * interesting!
  * 

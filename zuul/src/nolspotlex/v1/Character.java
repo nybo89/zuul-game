@@ -1,7 +1,7 @@
 package nolspotlex.v1;
 
 /**
- * This class is part of the "World of NolsxPotLe" application. "World of NolsxPotLe" is a
+ * This class is part of the "World of NolsPotLex" application. "World of NolsPotLex" is a
  * very simple, text based adventure game.
  * 
  * A "Character" represents one person in the scenery of the game. He can give you some indication.
