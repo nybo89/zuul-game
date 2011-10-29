@@ -72,7 +72,7 @@ public class Game {
 		intense_care_room = new Room("In the intense care room", Type.INTENSE_CARE_ROOM);
 		corridor = new Room("in the corridor", Type.CORRIDOR);
 		parking = new Room("in the parking, but not outside...", Type.PARKING);
-		toilets = new Room("in the toilets", Type.OUTSIDE);
+		toilets = new Room("in the toilets", Type.TOILETS);
 		reception = new Room("in the reception", Type.RECEPTION);
 		waiting_room = new Room("in the waiting room", Type.WAITING_ROOM);
 		restaurant = new Room("in the restaurant", Type.RESTAURANT);
@@ -89,6 +89,9 @@ public class Game {
 
 		intense_care_room.setExit("west", bedroom);
 		intense_care_room.setExit("south", toilets);
+		
+		toilets.setExit("north", intense_care_room);
+		toilets.setExit("west", corridor);
 
 		corridor.setExit("north", bedroom);
 		corridor.setExit("east", toilets);
