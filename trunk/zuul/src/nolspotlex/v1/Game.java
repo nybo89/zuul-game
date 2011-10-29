@@ -511,6 +511,12 @@ public class Game {
 
         System.out.println("\n ------- Aaaaah !! you're sucked into a black hole -------\n");
 
+        // Removing toilets and outside
+        rooms.remove(4);
+        rooms.remove(7);
+        
+        System.out.println(rooms.get(4).getShortDescription());
+        System.out.println(rooms.get(7).getShortDescription());
         currentRoom = (Room) rooms.get(random);
         System.out.println(currentRoom.getLongDescription()); 
     }
