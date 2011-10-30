@@ -19,6 +19,7 @@ public class BeamerCommand extends Command
      * charged in..
      * Return always false
      */
+    @Override
     public boolean execute(Player player)
     {
         if (!hasSecondWord()) {

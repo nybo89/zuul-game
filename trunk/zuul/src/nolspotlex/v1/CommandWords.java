@@ -38,7 +38,7 @@ public class CommandWords {
      */
     public Command get(String word)
     {
-        return (Command)commands.get(word);
+        return commands.get(word);
     }
 
     /**

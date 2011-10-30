@@ -18,6 +18,7 @@ public class UseCommand extends Command
      * We have to be in the good room
      * Returns always 'false'.
      */
+    @Override
     public boolean execute(Player player)
     {
         if (!hasSecondWord()) {
