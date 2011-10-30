@@ -29,29 +29,30 @@ import java.util.Scanner;
 
 public class Game {
     private Parser parser;
-    private Room currentRoom;
+    private static Player player;
     // Count the number of current number of moves
-    private int numberOfMoves;
+    private static int numberOfMoves;
     // Fix a limit to the number of moves
-    private int limitOfMoves;
+    private static int limitOfMoves;
     // Fix a number of rooms for choosing the teleport room
     private static final int NB_ROOM_TELEPORT = 8;
     // Build a list which contains all the current rooms of the game
     private static ArrayList<Room> rooms;
     // Check if the player owns the key
-    private boolean got_key = false;
+    private static boolean got_key = false;
     // Check if the final door is unlocked
-    private boolean door_unlocked = false;	
-    private Room randomRoom;
-    private Room beamerRoom;
+    private static boolean door_unlocked = false;	
+    private static Room randomRoom;
+    private static Room beamerRoom;
 
     /**
      * Create the game and initialize its internal map.
      */
     public Game() {
         rooms = new ArrayList<Room>();
-        createRooms();
         numberOfMoves = 0;
+        player = new Player();
+        createRooms();
         new Trap();
     }
 
@@ -109,10 +110,9 @@ public class Game {
         restaurant.setExit("west", waiting_room);
 
         // Initialize the trap way
-        trap_room.setExit("north", way_to_go);
+        trap_room.setExit("up", way_to_go);
 
-        way_to_go.setExit("south", trap_room);
-        way_to_go.setExit("north", bedroom);
+        way_to_go.setExit("up", bedroom);
 
         //Create character
         //
@@ -121,7 +121,7 @@ public class Game {
         corridor.addCharacter(John);
 
         // start game in the bedroom
-        currentRoom = bedroom; 
+        player.setCurrentRoom(bedroom); 
         beamerRoom = bedroom;
         randomRoom = toilets;
     }
@@ -142,12 +142,16 @@ public class Game {
 
         printWelcome();
 
-        // Enter the main command loop. Here we repeatedly read commands and
+        // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
         boolean finished = false;
-        while (!finished) {
+        while(! finished) {
             Command command = parser.getCommand();
-            finished = processCommand(command);
+            if(command == null) {
+                System.out.println("I don't understand...");
+            } else {
+                finished = command.execute(player);
+            }
         }
     }
 
@@ -155,6 +159,7 @@ public class Game {
      * Print out the opening message for the player. 
      * New form of time limit : a level is asked at the beginning
      * of the game defined by the maximum tolerated number of moves.
+     * @return 
      */
     private void printWelcome() {
         System.out.println();
@@ -163,9 +168,9 @@ public class Game {
 
         chooseLevel();
 
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
+        System.out.println("Type help if you need help.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(player.getCurrentRoom().getLongDescription());
 
         // Instantiate a parser which will read the command words
         parser = new Parser();
@@ -210,152 +215,10 @@ public class Game {
     }
 
     /**
-     * Given a command, process (that is: execute) the command.
-     * 
-     * @param command
-     *            The command to be processed.
-     * @return true If the command ends the game, false otherwise.
-     */
-    public boolean processCommand(Command command) {
-        boolean wantToQuit = false;
-
-        CommandWord commandWord = command.getCommandWord();
-
-        if (commandWord == CommandWord.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
-            return false;
-        }
-        if (commandWord == CommandWord.HELP) {
-            printHelp();
-        } else if (commandWord == CommandWord.GO) {
-            if (!goRoom(command))
-            {
-                // Quit the game after having reached the maximum number of moves
-                wantToQuit = quit(new Command(CommandWord.QUIT, null));
-            }
-        } else if (commandWord == CommandWord.QUIT) {
-            wantToQuit = quit(command);
-        }
-        else if (commandWord == CommandWord.TAKE)
-        {
-            takeKey(command);
-        }
-        else if (commandWord == CommandWord.USE)
-        {
-            useKey(command);
-        }
-        else if (commandWord == CommandWord.BEAMER) {
-            beamer(command);
-        }
-        // else command not recognised.
-        return wantToQuit;
-    }
-
-    /**
-     * Print out some help information. Here we print some stupid, cryptic
-     * message and a list of the command words.
-     */
-    private void printHelp() {
-        System.out.println("You are in the world of ZUUL no way to get out instead of finding the EXIT DOOR ! MUHAHAHA");
-        System.out.println(currentRoom.getLongDescription());
-        System.out.println();
-        System.out.println("Your command words are:");
-        parser.showCommands();
-    }
-
-    /**
-     * Try to go to one direction. If there is an exit, enter the new room,
-     * otherwise print an error message.
-     * 
-     * New form of time limit : Each time a player uses the command "GO" 
-     * with a good given direction (ex : go east), it is counted as a move
-     * 
-     * All cases are checked in order to prevent the player from going outside without
-     * the key, or without having opened the door, etc.
-     * 
-     * If the number of moves equals to the limit number of moves,
-     *  the player loses the game.
-     *  
-     */
-    public boolean goRoom(Command command) {
-
-        if (!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
-            return true;
-        }
-
-        // Get the direction to go
-        String direction = command.getSecondWord();
-
-        // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
-
-        if (nextRoom == null) {
-            System.out.println("There is no door! -- Why are you so stupid ?!");
-            // Count a move because the player is stupid
-            boolean decision = countMove();	
-            return decision;
-        }
-        // Check if the player doesn't owns the key at the reception
-        if(nextRoom.getType().equals(Type.OUTSIDE) && !got_key && !door_unlocked )
-        {
-            System.out.println("Sorry but the door is locked ! you have to find the key somewhere over the rainbow..");
-            return true;
-        }
-        // Check if the player owns the key at the reception but haven't opened it
-        else if(nextRoom.getType().equals(Type.OUTSIDE) && got_key && !door_unlocked)
-        {
-            System.out.println("You have to open the door to get out of there !");
-            return true;
-        }
-        else {
-            currentRoom = nextRoom;
-            //Check if there are Character in the room
-            //
-            Character person = currentRoom.getCharacter(); 
-            if(person != null && !person.hasSpoken()) {
-                System.out.println("\nThere is a person in this Room...\n" + person.getName() + ": " + person.getDialogue());
-                person.setHasSpoken(true);
-            }
-            //Check that is randomRoom
-            //
-            if(currentRoom.equals(randomRoom)) {
-                goRandomRoom();
-            }
-            // Check if the player is in the trap room and if he has already been there
-            // Yes : the game continues normally
-            // No  : he falls into the trap
-            if (!Trap.Is_catched_by_trap() && currentRoom.getType().equals(Trap.getChosen_trap().getType()))
-            {
-                System.out.println();
-                System.out.println("------ Aaaahh !! You are falling into a trap -----------");
-                System.out.println();
-
-                for(Room r : rooms){
-                    if(r.getType().equals(Type.TRAP_ROOM)){
-                        currentRoom = r;
-                    }
-                }	
-                Trap.setIs_catched_by_trap(true);
-            }
-            // Check if the nextroom is the final exit
-            if (currentRoom.getType().equals(Type.OUTSIDE)) {
-                System.out.println("The outside checkpoint has been reached ! ");
-                System.out.println("You have won the game, well done Indiana ;)");
-                return false;
-            }
-            System.out.println(currentRoom.getLongDescription());
-        }
-        boolean decision = countMove();	
-        return decision;
-    }
-
-    /**
      * Counting the current move of the player
      * @return false if the player has executed too many moves, true otherwise
      */
-    public boolean countMove(){
+    public static boolean countMove(){
         // Count a move
         numberOfMoves++;
 
@@ -373,126 +236,20 @@ public class Game {
     }
 
     /**
-     * "take" was entered. Check the rest of the command to see wether
-     * we take the key or not
-     * 
-     * @param command
-     */
-    public void takeKey(Command command){
-        if (!command.hasSecondWord()) {
-            System.out.println("take what?");
-        } 
-        else if (!command.getSecondWord().equals("key")){
-            System.out.println("There is nothing like that to take !");
-        }
-        else if (!currentRoom.getType().equals(Type.DELIVERY_ROOM))
-        {
-            System.out.println("There is nothing to take there !");		}
-        else
-        {
-            if(!got_key)
-            {
-                System.out.println("You've just found the Golden Key ! :) ");
-                System.out.println("Use it the right way");
-                for (Room r : rooms)
-                {
-                    if (r.getType().equals(Type.DELIVERY_ROOM))
-                        r.setDescription("in the delivery room");
-                    if (r.getType().equals(Type.RECEPTION))
-                        r.setDescription("in the reception -- Here you can use your GOLDEN KEY ");
-                }
-                got_key = true;
-            }
-            else 
-                System.out.println("The key have already been taken ! Have you lost it ?!");
-        }
-    }
-
-    /**
-     * "use" was entered. Check the rest of the command to see wether
-     * we use the key or not
-     * 
-     * @param command
-     */
-    private void useKey(Command command) {
-        if (!command.hasSecondWord()) {
-            System.out.println("use what?");
-        } 
-        else if (!command.getSecondWord().equals("key")){
-            System.out.println("There is nothing to use like that !");
-        }
-        else if (!currentRoom.getType().equals(Type.RECEPTION))
-        {
-            System.out.println("There is nothing to use there !");		
-        }
-        else if (currentRoom.getType().equals(Type.RECEPTION) && !got_key){
-            System.out.println("Door can't be opened yet ! try to get the key ;)");		
-        }
-        else
-        {
-            System.out.println("Door is unlocked, beware of zombies behind and ruun !!! ");
-            door_unlocked = true;
-        }
-    }
-
-    /**
-     * "Quit" was entered. Check the rest of the command to see whether we
-     * really quit the game.
-     * 
-     * @return true, if this command quits the game, false otherwise.
-     */
-    private boolean quit(Command command) {
-        if (command.hasSecondWord()) {
-            System.out.println("Quit what?");
-            return false;
-        } else {
-            return true; // signal that we want to quit
-        }
-    }
-
-    /**
-     * Try to use beamer device. When you charge the beamer, it memorizes the current room.
-     * When you fire the beamer, it transports you immediately back to the room it was
-     * charged in.
-     */
-    private void beamer(Command command){
-        if (!command.hasSecondWord()) {
-            // if there is no second word, we don't know what to do...
-            System.out.println("Beamer what ? (charged or fired)");
-            return;
-        }
-
-        String action = command.getSecondWord();
-
-
-        if (action.equals("charged")) {
-            beamerRoom = currentRoom;
-            System.out.println("This room is charged to beamer !");
-        } else if (action.equals("fired")) {
-            currentRoom = beamerRoom;
-            System.out.println(currentRoom.getLongDescription());
-        } else {
-            System.out.println("Invalid command beamer !");
-            return;
-        }
-
-    }
-
-    /**
      * Randomly transported into one of the other rooms.
      */
-    private void goRandomRoom(){
+    public static void goRandomRoom(){
 
         int random = (int)(Math.random() * NB_ROOM_TELEPORT);
         // Select a random room
         Type teleport = Type.values()[random];
         for(Room r : rooms){
             if(r.getType().equals(teleport)){
-                currentRoom = r;
+                player.setCurrentRoom(r);
             }
         }
         System.out.println("\n ------- Aaaaah !! you're sucked into a black hole -------\n");
-        System.out.println(currentRoom.getLongDescription()); 
+        System.out.println(player.getCurrentRoom().getLongDescription()); 
     }
 
     /**
@@ -526,17 +283,61 @@ public class Game {
     /**
      * @return the got_key
      */
-    public boolean hasGot_key() {
+    public static boolean hasGot_key() {
         return got_key;
     }
 
     /**
      * @return the door_unlocked
      */
-    public boolean hasDoor_unlocked() {
+    public static boolean hasDoor_unlocked() {
         return door_unlocked;
     }
 
 
+    /**
+     * @return the randomRoom
+     */
+    public static Room getRandomRoom() {
+        return randomRoom;
+    }
+
+
+    /**
+     * @param randomRoom the randomRoom to set
+     */
+    public static void setRandomRoom(Room random) {
+        randomRoom = random;
+    }
+
+    /**
+     * @param got_key the got_key to set
+     */
+    public static void setGot_key(boolean key) {
+        got_key = key;
+    }
+
+    /**
+     * @param door_unlocked the door_unlocked to set
+     */
+    public static void setDoor_unlocked(boolean door) {
+        door_unlocked = door;
+    }
+
+   
+    /**
+     * @return the beamerRoom
+     */
+    public static Room getBeamerRoom() {
+        return beamerRoom;
+    }
+    
+
+    /**
+     * @param beamerRoom the beamerRoom to set
+     */
+    public static void setBeamerRoom(Room beamer) {
+        beamerRoom = beamer;
+    }
 
 }
