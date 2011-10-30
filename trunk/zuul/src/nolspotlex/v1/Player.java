@@ -1,5 +1,7 @@
 package nolspotlex.v1;
 
+import java.util.HashMap;
+
 /**
  * This class represents players in the game. 
  * Each player has a current location.
@@ -11,6 +13,7 @@ package nolspotlex.v1;
 public class Player
 {
     private Room currentRoom;
+    private HashMap<String, Item> items;
 
     /**
      * Constructor for objects of class Player
@@ -18,6 +21,7 @@ public class Player
     public Player()
     {
         currentRoom = null;
+        items = new HashMap<String, Item>();
     }
 
     /**
@@ -117,6 +121,24 @@ public class Player
         }
         boolean decision = Game.countMove(); 
         return decision;
+    }
+
+    /**
+     * @return the items
+     */
+    public HashMap<String, Item> getItems() {
+        return items;
+    }
+
+    /**
+     * @param items the items to set
+     */
+    public void setItems(HashMap<String, Item> items) {
+        this.items = items;
+    }
+    
+    public void addItem(Item item) {
+        items.put(item.getName(), item);
     }
 
 }

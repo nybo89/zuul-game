@@ -22,7 +22,7 @@ public class Room {
     private String description;
     private HashMap<String, Room> exits; // stores exits of this room.
     private Character person;
-
+    private Item item;
     /**
      * Create a room described "description". Initially, it has no exits.
      * "description" is something like "a kitchen" or "an open court yard".
@@ -94,14 +94,22 @@ public class Room {
     public Room getExit(String direction) {
         return exits.get(direction);
     }
-
+    
+    /**
+     * Add a character to the room
+     * @param person
+     */
     public void addCharacter(Character person) {
         this.person = person;
     }
 
+    /**
+     * 
+     * @return the character of the room
+     */
     public Character getCharacter() {
         return this.person;
-    }
+    }    
 
     /**
      * @return the name of the room
@@ -116,4 +124,30 @@ public class Room {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    /**
+     * Add a item to the room 
+     * @param item
+     */
+    public void addItem(Item item) {
+        this.item = item;
+    }
+    
+    /**
+     * 
+     * @return item of the room
+     */
+    public Item getItem() {
+        return item;
+    }
+   
+    /**
+     * 
+     */
+    public Item takeItem() {
+        Item res = item;
+        item = null;
+        return res;
+    }
+  
 }
