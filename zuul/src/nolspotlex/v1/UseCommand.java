@@ -27,17 +27,8 @@ public class UseCommand extends Command
         else if (player.getItems().get(getSecondWord().toLowerCase()) == null){
             System.out.println("There is nothing to use like that !");
         }
-        else if (!player.getCurrentRoom().getType().equals(Type.RECEPTION))
-        {
+        else if (!player.getItems().get(getSecondWord().toLowerCase()).executeItem(player)) {
             System.out.println("There is nothing to use there !");              
-        }
-        else if (player.getCurrentRoom().getType().equals(Type.RECEPTION) && !Game.hasGot_key()){
-            System.out.println("Door can't be opened yet ! try to get the key ;)");             
-        }
-        else
-        {
-            System.out.println("Door is unlocked, beware of zombies behind and ruun !!! ");
-            Game.setDoor_unlocked(true);
         }
         return false;
     }

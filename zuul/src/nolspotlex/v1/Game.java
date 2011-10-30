@@ -39,25 +39,31 @@ public class Game {
     private static final int NB_ROOM_TELEPORT = 8;
     // Build a list which contains all the current rooms of the game
     private static ArrayList<Room> rooms;
-    // Check if the player owns the key
-    private static boolean got_key = false;
-    // Check if the final door is unlocked
-    private static boolean door_unlocked = false;	
+    	
     private static Room randomRoom;
     private static Room beamerRoom;
     private HashMap<String, Item> items;
+    private ArrayList<Door> doors;
+    
+    private Room bedroom, delivery_room, intense_care_room, corridor, parking,
+    toilets, reception, waiting_room, restaurant, outside,
+    trap_room,way_to_go;
 
     /**
      * Create the game and initialize its internal map.
      */
     public Game() {
         rooms = new ArrayList<Room>();
-        items = new HashMap<String, Item>();        
+        items = new HashMap<String, Item>();  
+        doors = new ArrayList<Door>();
+        numberOfMoves = 0;
         
         createItems();
-        numberOfMoves = 0;
+        createDoors();        
         setPlayer(new Player());
         createRooms();
+        setRoomsDoors();
+        addItemsToRooms();
         new Trap();
     }
 
@@ -67,14 +73,10 @@ public class Game {
      * 
      */
     private void createRooms() {
-        Room bedroom, delivery_room, intense_care_room, corridor, parking,
-        toilets, reception, waiting_room, restaurant, outside,
-        trap_room,way_to_go;
 
         // Create the rooms
         bedroom = new Room("in the bedroom", Type.BEDROOM);
         delivery_room = new Room("in the delivery room --- There is a key on the table...", Type.DELIVERY_ROOM);
-        delivery_room.addItem(items.get("key"));
         intense_care_room = new Room("In the intense care room", Type.INTENSE_CARE_ROOM);
         corridor = new Room("in the corridor", Type.CORRIDOR);
         parking = new Room("in the parking, but not outside...", Type.PARKING);
@@ -86,39 +88,7 @@ public class Game {
         trap_room = new Room("in a dark room with strange noises.. Get out of here now !", Type.TRAP_ROOM);
         way_to_go = new Room("in another room close to a such familiar place...", Type.WAY_TO_GO);
 
-        // Initialise room exits
-        bedroom.setExit("east", intense_care_room);
-        bedroom.setExit("west", delivery_room);
-        bedroom.setExit("south", corridor);
-
-        delivery_room.setExit("east", bedroom);
-
-        intense_care_room.setExit("west", bedroom);
-        intense_care_room.setExit("south", toilets);
-
-        toilets.setExit("north", intense_care_room);
-        toilets.setExit("west", corridor);
-
-        corridor.setExit("north", bedroom);
-        corridor.setExit("east", toilets);
-        corridor.setExit("south", waiting_room);
-
-        waiting_room.setExit("north", corridor);	
-        waiting_room.setExit("east", restaurant);
-        waiting_room.setExit("west", reception);
-
-        reception.setExit("east", waiting_room);
-        reception.setExit("north", parking);
-        reception.setExit("south", outside);
-
-        parking.setExit("south", reception);
-
-        restaurant.setExit("west", waiting_room);
-
-        // Initialize the trap way
-        trap_room.setExit("up", way_to_go);
-
-        way_to_go.setExit("up", bedroom);
+        
 
         //Create character
         //
@@ -137,6 +107,72 @@ public class Game {
         key = new Item("Key", "This key can open a door...");
         
         items.put(key.getName().toLowerCase(), key);
+    }
+    
+    /**
+     * Initialise room doors and respective locks
+     */
+    private void setRoomsDoors(){        
+        
+     // Initialise room exits
+        bedroom.setDoor("east", intense_care_room, false);
+        bedroom.setDoor("west", delivery_room, false);
+        bedroom.setDoor("south", corridor, false);
+
+        delivery_room.setDoor("east", bedroom, false);
+
+        intense_care_room.setDoor("west", bedroom, false);
+        intense_care_room.setDoor("south", toilets, false);
+
+        toilets.setDoor("north", intense_care_room, false);
+        toilets.setDoor("west", corridor, false);
+
+        corridor.setDoor("north", bedroom, false);
+        corridor.setDoor("east", toilets, false);
+        corridor.setDoor("south", waiting_room, false);
+
+        waiting_room.setDoor("north", corridor, false);        
+        waiting_room.setDoor("east", restaurant, false);
+        waiting_room.setDoor("west", reception, false);
+
+        reception.setDoor("east", waiting_room, false);
+        reception.setDoor("north", parking, false);
+        reception.setDoor("south", outside, true);
+
+        parking.setDoor("south", reception, false);
+
+        restaurant.setDoor("west", waiting_room, false);
+
+        // Initialize the trap way
+        trap_room.setDoor("up", way_to_go, false);
+
+        way_to_go.setDoor("up", bedroom, true);
+    }
+    
+    /**
+     * Create the Doors for the game.
+     */
+    private void createDoors(){
+        Door north, east, south, west;
+
+        north = new Door("north");
+        east = new Door("east");
+        south = new Door("south");
+        west = new Door("west");
+
+        //add each door to doors collection
+        doors.add(north);
+        doors.add(east);
+        doors.add(south);
+        doors.add(west);
+    }
+    
+    /**
+     * Add items to the rooms
+     */
+    private void addItemsToRooms(){
+
+        delivery_room.addItem(items.get("key"));
     }
 
     /**
@@ -294,21 +330,6 @@ public class Game {
     }
 
     /**
-     * @return the got_key
-     */
-    public static boolean hasGot_key() {
-        return got_key;
-    }
-
-    /**
-     * @return the door_unlocked
-     */
-    public static boolean hasDoor_unlocked() {
-        return door_unlocked;
-    }
-
-
-    /**
      * @return the randomRoom
      */
     public static Room getRandomRoom() {
@@ -323,21 +344,7 @@ public class Game {
         randomRoom = random;
     }
 
-    /**
-     * @param got_key the got_key to set
-     */
-    public static void setGot_key(boolean key) {
-        got_key = key;
-    }
-
-    /**
-     * @param door_unlocked the door_unlocked to set
-     */
-    public static void setDoor_unlocked(boolean door) {
-        door_unlocked = door;
-    }
-
-   
+  
     /**
      * @return the beamerRoom
      */

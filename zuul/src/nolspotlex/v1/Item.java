@@ -37,5 +37,21 @@ public class Item {
     public void setDescription(String description) {
         this.description = description;
     }
+    
+    public boolean executeItem(Player player) {
+        
+        if(this.name.equals("Key")) {
+            for(Door r : player.getCurrentRoom().getDoors()) {
+                if(r.isLocked()) {
+                    r.setLock(false);
+                    System.out.println(r.getName() + " is open !");
+                    return true;
+                }                                    
+            }
+        }
+        
+        return false;
+               
+    }
 
 }

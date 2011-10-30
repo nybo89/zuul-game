@@ -65,7 +65,7 @@ public class Player
             boolean decision = Game.countMove();     
             return decision;
         }
-        // Check if the player doesn't owns the key at the reception
+        /*// Check if the player doesn't owns the key at the reception
         if(nextRoom.getType().equals(Type.OUTSIDE) && !Game.hasGot_key() && !Game.hasDoor_unlocked())
         {
             System.out.println("Sorry but the door is locked ! you have to find the key somewhere over the rainbow..");
@@ -76,6 +76,16 @@ public class Player
         {
             System.out.println("You have to open the door to get out of there !");
             return true;
+        }*/
+        if(currentRoom.getDoor(direction).isLocked()) {
+            if(items.get("Key")==null) {
+                System.out.println("Sorry but the door is locked ! you have to find the key somewhere over the rainbow..");
+                return true;
+            }
+            else {
+                System.out.println("You have to open the door to get out of there !");
+                return true;
+            }
         }
         else {
             setCurrentRoom(nextRoom);
@@ -138,7 +148,7 @@ public class Player
     }
     
     public void addItem(Item item) {
-        items.put(item.getName(), item);
+        items.put(item.getName().toLowerCase(), item);
     }
 
 }
