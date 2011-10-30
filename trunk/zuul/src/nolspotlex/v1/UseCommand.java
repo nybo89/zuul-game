@@ -20,7 +20,7 @@ public class UseCommand extends Command
      */
     public boolean execute(Player player)
     {
-        if (hasSecondWord()) {
+        if (!hasSecondWord()) {
             System.out.println("use what?");
         } 
         else if (!getSecondWord().equals("key")){

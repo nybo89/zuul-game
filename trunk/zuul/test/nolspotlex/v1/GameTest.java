@@ -18,8 +18,10 @@ public class GameTest {
     Game G;
     ArrayList<Type> chosen_rooms;
     ArrayList<Room> rooms;
-    boolean found;
-    Command go_EAST,go_SOUTH,go_WEST,take,use;
+    boolean found,ok;
+    TakeCommand take;
+    UseCommand use;
+    Command command;
 
     /**
      * @throws java.lang.Exception
@@ -36,7 +38,10 @@ public class GameTest {
         chosen_rooms.add(Type.RECEPTION);
         chosen_rooms.add(Type.WAITING_ROOM);
         found = false;
+        ok = false;
         G.setLimitOfMoves(50);
+        take = new TakeCommand();
+        use = new UseCommand();
     }
 
     /**
@@ -48,11 +53,10 @@ public class GameTest {
         rooms = null;
         chosen_rooms = null;
         found = false;
-        go_EAST = null;
-        go_SOUTH = null;
-        go_WEST = null;
+        ok = false;
         take = null;
         use = null;
+        command = null;
     }
 
     /**
@@ -84,14 +88,14 @@ public class GameTest {
     public void testCountMove() {
         G.setLimitOfMoves(3);
 
-        G.processCommand(go_WEST);
+        ok = Game.getPlayer().goRoom("east");
         // Inc one time with counting a moove
         assertTrue(G.countMove());
-        G.processCommand(go_WEST);
+        ok = Game.getPlayer().goRoom("east");
         assertEquals(G.getNumberOfMoves(), G.getLimitOfMoves());
         assertFalse(G.countMove());
     }
-
+    
     /**
      * Test method for {@link nolspotlex.v1.Game#takeKey()}.
      */
@@ -101,8 +105,9 @@ public class GameTest {
         assertFalse(G.hasGot_key());
 
         // Go into the delivery_room (at the west of the bedroom (the key is there))
-        G.processCommand(go_WEST);
-        G.processCommand(take);
+        ok = Game.getPlayer().goRoom("west");
+        take.setSecondWord("key");
+        take.execute(Game.getPlayer());
         assertTrue(G.hasGot_key());
     }
 
@@ -120,16 +125,18 @@ public class GameTest {
         }
         assertFalse(G.hasDoor_unlocked());
         // Go into the delivery_room (at the west of the bedroom (the key is there))
-        G.processCommand(go_WEST);
-        G.processCommand(take);
+        ok = Game.getPlayer().goRoom("west");
+        take.setSecondWord("key");
+        take.execute(Game.getPlayer());
         assertTrue(G.hasGot_key());
 
         // Go into reception and unlock the door 
-        G.processCommand(go_EAST);
-        G.processCommand(go_SOUTH);
-        G.processCommand(go_SOUTH);
-        G.processCommand(go_WEST);
-        G.processCommand(use);
+        ok = Game.getPlayer().goRoom("east");
+        ok = Game.getPlayer().goRoom("south");
+        ok = Game.getPlayer().goRoom("south");
+        ok = Game.getPlayer().goRoom("west");
+        use.setSecondWord("key");
+        use.execute(Game.getPlayer());
         assertTrue(G.hasDoor_unlocked());
     }
 
