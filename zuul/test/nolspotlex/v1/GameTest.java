@@ -74,20 +74,6 @@ public class GameTest {
     }
 
     /**
-     * Test method for {@link nolspotlex.v1.Game#createRandomTrap()}.
-     */
-    @Test
-    public void testCreateRandomTrap() {
-
-        for(Type r : chosen_rooms)
-        {
-            if (r.equals(Trap.getChosen_trap().getType()))
-                found = true;
-        }
-        assertTrue(found);
-    }
-
-    /**
      * Test method for {@link nolspotlex.v1.Game#addRoom(nolspotlex.v1.Room)}.
      */
     @Test
