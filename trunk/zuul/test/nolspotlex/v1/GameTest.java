@@ -102,13 +102,13 @@ public class GameTest {
     @Test
     public void testTakeKey() {
 
-        assertFalse(Game.hasGot_key());
+        assertFalse(Game.getPlayer().getItems().get("key") != null);
 
         // Go into the delivery_room (at the west of the bedroom (the key is there))
         ok = Game.getPlayer().goRoom("west");
         take.setSecondWord("key");
         take.execute(Game.getPlayer());
-        assertTrue(Game.hasGot_key());
+        assertTrue(Game.getPlayer().getItems().get("key") != null);
     }
 
     /**
@@ -123,12 +123,11 @@ public class GameTest {
             if (r.getType().equals(Type.PARKING))
                 Trap.setChosen_trap(r);
         }
-        assertFalse(Game.hasDoor_unlocked());
+        
         // Go into the delivery_room (at the west of the bedroom (the key is there))
         ok = Game.getPlayer().goRoom("west");
         take.setSecondWord("key");
         take.execute(Game.getPlayer());
-        assertTrue(Game.hasGot_key());
 
         // Go into reception and unlock the door 
         ok = Game.getPlayer().goRoom("east");
@@ -137,7 +136,8 @@ public class GameTest {
         ok = Game.getPlayer().goRoom("west");
         use.setSecondWord("key");
         use.execute(Game.getPlayer());
-        assertTrue(Game.hasDoor_unlocked());
+        
+        assertFalse(Game.getPlayer().getCurrentRoom().getDoor("south").isLocked());
     }
 
 }
