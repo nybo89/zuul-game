@@ -51,7 +51,7 @@ public class Game {
     public Game() {
         rooms = new ArrayList<Room>();
         numberOfMoves = 0;
-        player = new Player();
+        setPlayer(new Player());
         createRooms();
         new Trap();
     }
@@ -121,7 +121,7 @@ public class Game {
         corridor.addCharacter(John);
 
         // start game in the bedroom
-        player.setCurrentRoom(bedroom); 
+        getPlayer().setCurrentRoom(bedroom); 
         beamerRoom = bedroom;
         randomRoom = toilets;
     }
@@ -150,7 +150,8 @@ public class Game {
             if(command == null) {
                 System.out.println("I don't understand...");
             } else {
-                finished = command.execute(player);
+                System.out.println(command.getSecondWord());
+                finished = command.execute(getPlayer());
             }
         }
     }
@@ -170,7 +171,7 @@ public class Game {
 
         System.out.println("Type help if you need help.");
         System.out.println();
-        System.out.println(player.getCurrentRoom().getLongDescription());
+        System.out.println(getPlayer().getCurrentRoom().getLongDescription());
 
         // Instantiate a parser which will read the command words
         parser = new Parser();
@@ -245,11 +246,11 @@ public class Game {
         Type teleport = Type.values()[random];
         for(Room r : rooms){
             if(r.getType().equals(teleport)){
-                player.setCurrentRoom(r);
+                getPlayer().setCurrentRoom(r);
             }
         }
         System.out.println("\n ------- Aaaaah !! you're sucked into a black hole -------\n");
-        System.out.println(player.getCurrentRoom().getLongDescription()); 
+        System.out.println(getPlayer().getCurrentRoom().getLongDescription()); 
     }
 
     /**
@@ -338,6 +339,20 @@ public class Game {
      */
     public static void setBeamerRoom(Room beamer) {
         beamerRoom = beamer;
+    }
+
+    /**
+     * @return the player
+     */
+    public static Player getPlayer() {
+        return player;
+    }
+
+    /**
+     * @param player the player to set
+     */
+    public static void setPlayer(Player player) {
+        Game.player = player;
     }
 
 }
