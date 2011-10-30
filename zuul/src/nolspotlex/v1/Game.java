@@ -150,7 +150,6 @@ public class Game {
             if(command == null) {
                 System.out.println("I don't understand...");
             } else {
-                System.out.println(command.getSecondWord());
                 finished = command.execute(getPlayer());
             }
         }
