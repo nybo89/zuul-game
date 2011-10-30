@@ -23,6 +23,7 @@ import java.util.StringTokenizer;
  */
 public class Parser {
     private CommandWords commands; // holds all valid command words
+    @SuppressWarnings("unused")
     private Scanner reader; // source of command input
 
     /**

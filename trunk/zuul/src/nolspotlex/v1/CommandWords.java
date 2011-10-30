@@ -1,7 +1,6 @@
 package nolspotlex.v1;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * This class is part of the "World of Zuul" application. "World of Zuul" is a
@@ -47,8 +46,8 @@ public class CommandWords {
      */
     public void showAll() 
     {
-        for(Iterator i = commands.keySet().iterator(); i.hasNext(); ) {
-            System.out.print(i.next() + "  ");
+        for (Object element : commands.keySet()) {
+            System.out.print(element + "  ");
         }
         System.out.println();
     }
