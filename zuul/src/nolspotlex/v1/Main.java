@@ -2,6 +2,12 @@ package nolspotlex.v1;
 
 import java.util.Scanner;
 
+/**
+ * Main class dedicated to run the game
+ * 
+ * @author Alexandre Boursier and Nolan Potier
+ * @version 2011.10.24
+ */
 public class Main {
 
     /**
@@ -35,6 +41,7 @@ public class Main {
             // Check if the entered command is different from the available choices.
             catch(Exception e)
             {
+                System.out.println(e);
                 System.out.println("Unkown command, sorry.");
             }
         }

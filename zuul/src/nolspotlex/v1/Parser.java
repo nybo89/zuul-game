@@ -1,6 +1,9 @@
 package nolspotlex.v1;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * This class is part of the "World of Zuul" application. "World of Zuul" is a
@@ -34,25 +37,40 @@ public class Parser {
      * @return The next command from the user.
      */
     public Command getCommand() {
-        String inputLine; // will hold the full input line
-        String word1 = null;
-        String word2 = null;
+        String inputLine = "";   // will hold the full input line
+        String word1;
+        String word2;
 
-        System.out.print("> "); // print prompt
+        System.out.print("> ");     // print prompt
 
-        inputLine = reader.nextLine();
-
-        // Find up to two words on the line.
-        Scanner tokenizer = new Scanner(inputLine);
-        if (tokenizer.hasNext()) {
-            word1 = tokenizer.next(); // get first word
-            if (tokenizer.hasNext()) {
-                word2 = tokenizer.next(); // get second word
-                // note: we just ignore the rest of the input line.
-            }
+        BufferedReader reader = 
+            new BufferedReader(new InputStreamReader(System.in));
+        try {
+            inputLine = reader.readLine();
+        }
+        catch(java.io.IOException exc) {
+            System.out.println ("There was an error during reading: "
+                                + exc.getMessage());
         }
 
-        return new Command(commands.getCommandWord(word1), word2);
+        StringTokenizer tokenizer = new StringTokenizer(inputLine);
+
+        if(tokenizer.hasMoreTokens())
+            word1 = tokenizer.nextToken();      // get first word
+        else
+            word1 = null;
+        if(tokenizer.hasMoreTokens())
+            word2 = tokenizer.nextToken();      // get second word
+        else
+            word2 = null;
+
+        // note: we just ignore the rest of the input line.
+
+        Command command = commands.get(word1);
+        if(command != null) {
+            command.setSecondWord(word2);
+        }
+        return command;
     }
 
     /**

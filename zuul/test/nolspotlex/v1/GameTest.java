@@ -36,12 +36,6 @@ public class GameTest {
         chosen_rooms.add(Type.RECEPTION);
         chosen_rooms.add(Type.WAITING_ROOM);
         found = false;
-        go_EAST = new Command(CommandWord.GO, "east");
-        go_SOUTH = new Command(CommandWord.GO, "south");
-        go_SOUTH = new Command(CommandWord.GO, "south");
-        go_WEST = new Command(CommandWord.GO, "west");
-        take = new Command(CommandWord.TAKE, "key");
-        use = new Command(CommandWord.USE, "key");
         G.setLimitOfMoves(50);
     }
 

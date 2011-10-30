@@ -15,57 +15,56 @@ package nolspotlex.v1;
  * 
  * If the command had only one word, then the second word is <null>.
  * 
- * @author Michael Kolling and David J. Barnes
+ * @author Michael Kolling and David J. Barnes 
  * @version 2008.03.30
  */
 
-public class Command {
-    private CommandWord commandWord;
+public abstract class Command {
     private String secondWord;
 
     /**
-     * Create a command object. First and second words must be supplied, but the
-     * second may be null.
-     * 
-     * @param commandWord
-     *            The CommandWord. UNKNOWN if the command word was not
-     *            recognised.
-     * @param secondWord
-     *            The second word of the command. May be null.
+     * Create a command object. First and second word must be supplied, but
+     * either one (or both) can be null. The command word should be null to
+     * indicate that this was a command that is not recognised by this game.
      */
-    public Command(CommandWord commandWord, String secondWord) {
-        this.commandWord = commandWord;
-        this.secondWord = secondWord;
+    public Command()
+    {
+        secondWord = null;
     }
 
     /**
-     * Return the command word (the first word) of this command.
-     * 
-     * @return The command word.
+     * Return the second word of this command. If no
+     * second word was entered, the result is null.
      */
-    public CommandWord getCommandWord() {
-        return commandWord;
-    }
-
-    /**
-     * @return The second word of this command. Returns null if there was no
-     *         second word.
-     */
-    public String getSecondWord() {
+    public String getSecondWord()
+    {
         return secondWord;
     }
 
     /**
-     * @return true if this command was not understood.
+     * Check whether a second word was entered for this 
+     * command.
      */
-    public boolean isUnknown() {
-        return (commandWord == CommandWord.UNKNOWN);
+    public boolean hasSecondWord()
+    {
+        return secondWord != null;
     }
 
     /**
-     * @return true if the command has a second word.
+     * Define the second word of this command (the word
+     * entered after the command word). Null indicates that 
+     * there was no second word.
      */
-    public boolean hasSecondWord() {
-        return (secondWord != null);
+    public void setSecondWord(String secondWord)
+    {
+        this.secondWord = secondWord;
     }
+
+    /**
+     * Execute this command. A flag is returned indicating whether
+     * the game is over as a result of this command.
+     * 
+     * @return True, if game should exit; false otherwise.
+     */
+    public abstract boolean execute(Player player);
 }
