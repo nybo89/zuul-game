@@ -18,6 +18,7 @@ public class GoCommand extends Command
      * room, otherwise print an error message. 
      * Returns always 'false'.
      */
+    @Override
     public boolean execute(Player player)
     {
         if(hasSecondWord()) {

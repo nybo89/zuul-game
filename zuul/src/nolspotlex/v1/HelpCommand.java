@@ -23,6 +23,7 @@ public class HelpCommand extends Command
      * cryptic message and a list of the command words.
      * Returns always false.
      */
+    @Override
     public boolean execute(Player player)
     {
         System.out.println("You are in the world of ZUUL no way to get out instead of finding the EXIT DOOR ! MUHAHAHA");

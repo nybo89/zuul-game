@@ -18,6 +18,7 @@ public class QuitCommand extends Command
      * we really quit the game. Return true, if we should quit, false
      * otherwise.
      */
+    @Override
     public boolean execute(Player player)
     {
         if(getSecondWord() == null) {
