@@ -90,10 +90,10 @@ public class GameTest {
 
         ok = Game.getPlayer().goRoom("east");
         // Inc one time with counting a moove
-        assertTrue(G.countMove());
+        assertTrue(Game.countMove());
         ok = Game.getPlayer().goRoom("east");
         assertEquals(G.getNumberOfMoves(), G.getLimitOfMoves());
-        assertFalse(G.countMove());
+        assertFalse(Game.countMove());
     }
     
     /**
@@ -102,13 +102,13 @@ public class GameTest {
     @Test
     public void testTakeKey() {
 
-        assertFalse(G.hasGot_key());
+        assertFalse(Game.hasGot_key());
 
         // Go into the delivery_room (at the west of the bedroom (the key is there))
         ok = Game.getPlayer().goRoom("west");
         take.setSecondWord("key");
         take.execute(Game.getPlayer());
-        assertTrue(G.hasGot_key());
+        assertTrue(Game.hasGot_key());
     }
 
     /**
@@ -123,12 +123,12 @@ public class GameTest {
             if (r.getType().equals(Type.PARKING))
                 Trap.setChosen_trap(r);
         }
-        assertFalse(G.hasDoor_unlocked());
+        assertFalse(Game.hasDoor_unlocked());
         // Go into the delivery_room (at the west of the bedroom (the key is there))
         ok = Game.getPlayer().goRoom("west");
         take.setSecondWord("key");
         take.execute(Game.getPlayer());
-        assertTrue(G.hasGot_key());
+        assertTrue(Game.hasGot_key());
 
         // Go into reception and unlock the door 
         ok = Game.getPlayer().goRoom("east");
@@ -137,7 +137,7 @@ public class GameTest {
         ok = Game.getPlayer().goRoom("west");
         use.setSecondWord("key");
         use.execute(Game.getPlayer());
-        assertTrue(G.hasDoor_unlocked());
+        assertTrue(Game.hasDoor_unlocked());
     }
 
 }
