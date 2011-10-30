@@ -27,7 +27,7 @@ public class GameTest {
     @Before
     public void setUp() throws Exception {
         G = new Game();
-        rooms = G.getRooms();
+        rooms = Game.getRooms();
         chosen_rooms = new ArrayList<Type>();
         chosen_rooms.add(Type.INTENSE_CARE_ROOM);
         chosen_rooms.add(Type.CORRIDOR);
@@ -79,10 +79,9 @@ public class GameTest {
     @Test
     public void testCreateRandomTrap() {
 
-        G.createRandomTrap();
         for(Type r : chosen_rooms)
         {
-            if (r.equals(G.getChosen_trap().getType()))
+            if (r.equals(Trap.getChosen_trap().getType()))
                 found = true;
         }
         assertTrue(found);
@@ -119,12 +118,12 @@ public class GameTest {
     @Test
     public void testTakeKey() {
 
-        assertFalse(G.isGot_key());
+        assertFalse(G.hasGot_key());
 
         // Go into the delivery_room (at the west of the bedroom (the key is there))
         G.processCommand(go_WEST);
         G.processCommand(take);
-        assertTrue(G.isGot_key());
+        assertTrue(G.hasGot_key());
     }
 
     /**
@@ -137,13 +136,13 @@ public class GameTest {
         for(Room r : rooms)
         {
             if (r.getType().equals(Type.PARKING))
-                G.setChosen_trap(r);
+                Trap.setChosen_trap(r);
         }
-        assertFalse(G.isDoor_unlocked());
+        assertFalse(G.hasDoor_unlocked());
         // Go into the delivery_room (at the west of the bedroom (the key is there))
         G.processCommand(go_WEST);
         G.processCommand(take);
-        assertTrue(G.isGot_key());
+        assertTrue(G.hasGot_key());
 
         // Go into reception and unlock the door 
         G.processCommand(go_EAST);
@@ -151,7 +150,7 @@ public class GameTest {
         G.processCommand(go_SOUTH);
         G.processCommand(go_WEST);
         G.processCommand(use);
-        assertTrue(G.isDoor_unlocked());
+        assertTrue(G.hasDoor_unlocked());
     }
 
 }

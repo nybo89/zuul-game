@@ -1,7 +1,6 @@
 package nolspotlex.v1;
 
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 /**
  * This class is part of the "World of Zuul" application. "World of Zuul" is a

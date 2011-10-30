@@ -34,12 +34,6 @@ public class Game {
     private int numberOfMoves;
     // Fix a limit to the number of moves
     private int limitOfMoves;
-    // Check if the player fell into the trap
-    private static boolean is_catched_by_trap = false;
-    // Attribute dedicated to the trap room
-    private Room chosen_trap;
-    // Fix a number of rooms for choosing the trap
-    private static final int NB_ROOM_TRAP = 6;
     // Fix a number of rooms for choosing the teleport room
     private static final int NB_ROOM_TELEPORT = 8;
     // Build a list which contains all the current rooms of the game
@@ -58,6 +52,7 @@ public class Game {
         rooms = new ArrayList<Room>();
         createRooms();
         numberOfMoves = 0;
+        new Trap();
     }
 
     /**
@@ -129,26 +124,6 @@ public class Game {
         currentRoom = bedroom; 
         beamerRoom = bedroom;
         randomRoom = toilets;
-
-        createRandomTrap();
-    }
-
-    /**
-     * CreateRandomTrap : The goal of this method is to choose amongst 
-     * rooms a trap which consist in falling into a new room we can cross
-     * one way. The following way brings the player to the bedroom.
-     * 
-     */
-    public void createRandomTrap()
-    {
-        int random = (int)(Math.random() * NB_ROOM_TRAP);
-        // Select a random room
-        Type trap = Type.values()[random];
-        for(Room r : rooms){
-            if(r.getType().equals(trap)){
-                chosen_trap = r;
-            }
-        }
     }
 
     /**
@@ -351,7 +326,7 @@ public class Game {
             // Check if the player is in the trap room and if he has already been there
             // Yes : the game continues normally
             // No  : he falls into the trap
-            if (!is_catched_by_trap && currentRoom.getType().equals(chosen_trap.getType()))
+            if (!Trap.Is_catched_by_trap() && currentRoom.getType().equals(Trap.getChosen_trap().getType()))
             {
                 System.out.println();
                 System.out.println("------ Aaaahh !! You are falling into a trap -----------");
@@ -362,7 +337,7 @@ public class Game {
                         currentRoom = r;
                     }
                 }	
-                is_catched_by_trap = true;
+                Trap.setIs_catched_by_trap(true);
             }
             // Check if the nextroom is the final exit
             if (currentRoom.getType().equals(Type.OUTSIDE)) {
@@ -507,7 +482,7 @@ public class Game {
      * Randomly transported into one of the other rooms.
      */
     private void goRandomRoom(){
-        
+
         int random = (int)(Math.random() * NB_ROOM_TELEPORT);
         // Select a random room
         Type teleport = Type.values()[random];
@@ -537,15 +512,8 @@ public class Game {
     /**
      * @return the rooms
      */
-    public ArrayList<Room> getRooms() {
+    public static ArrayList<Room> getRooms() {
         return rooms;
-    }
-
-    /**
-     * @return the chosen_trap
-     */
-    public Room getChosen_trap() {
-        return chosen_trap;
     }
 
     /**
@@ -558,21 +526,17 @@ public class Game {
     /**
      * @return the got_key
      */
-    public boolean isGot_key() {
+    public boolean hasGot_key() {
         return got_key;
     }
 
     /**
      * @return the door_unlocked
      */
-    public boolean isDoor_unlocked() {
+    public boolean hasDoor_unlocked() {
         return door_unlocked;
     }
 
-    /**
-     * @param chosen_trap the chosen_trap to set
-     */
-    public void setChosen_trap(Room chosen_trap) {
-        this.chosen_trap = chosen_trap;
-    }
+
+
 }
