@@ -35,23 +35,10 @@ public class TakeCommand extends Command
             System.out.println("There is nothing to take there !");             }
         else
         {
-            if(!Game.hasGot_key())
-            {
-                player.addItem(player.getCurrentRoom().takeItem());     
+                System.out.println("You've just found " + player.getCurrentRoom().getItem().getName()  + " ! :) ");
+                System.out.println(player.getCurrentRoom().getItem().getDescription());
                 
-                System.out.println("You've just found the Golden Key ! :) ");
-                System.out.println("Use it the right way");
-                for (Room r : Game.getRooms())
-                {
-                    if (r.getType().equals(Type.DELIVERY_ROOM))
-                        r.setDescription("in the delivery room");
-                    if (r.getType().equals(Type.RECEPTION))
-                        r.setDescription("in the reception -- Here you can use your GOLDEN KEY ");
-                }
-                Game.setGot_key(true);
-            }
-            else 
-                System.out.println("The key have already been taken ! Have you lost it ?!");
+                player.addItem(player.getCurrentRoom().takeItem());
         }
         return false;
     }

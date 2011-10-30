@@ -1,6 +1,6 @@
 package nolspotlex.v1;
 
-import java.util.Set;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -20,7 +20,10 @@ import java.util.HashMap;
 public class Room {
     private Type nom;
     private String description;
-    private HashMap<String, Room> exits; // stores exits of this room.
+    //private HashMap<String, Room> exits; // stores exits of this room.
+    private ArrayList<Door> doors;
+    // The HashMap is used to map the door names of the room with
+    private HashMap<String, Room> doorsHash;
     private Character person;
     private Item item;
     /**
@@ -33,7 +36,8 @@ public class Room {
     public Room(String description, Type type) {
         this.nom = type;
         this.description = description;
-        exits = new HashMap<String, Room>();
+        doorsHash = new HashMap<String, Room>();
+        doors = new ArrayList<Door>();
         // add the room to the dictionnary
         Game.addRoom(this);
     }
@@ -46,9 +50,17 @@ public class Room {
      * @param neighbor
      *            The room to which the exit leads.
      */
-    public void setExit(String direction, Room neighbor) {
+    /*public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
+    }*/
+    
+    public void setDoor(String doorName, Room neighbor, Boolean isLocked){
+        Door door = new Door(doorName);
+        door.setLock(isLocked);
+        getDoors().add(door);
+        doorsHash.put(doorName, neighbor);
     }
+    
 
     /**
      * @return The short description of the room (the one that was defined in
@@ -76,9 +88,8 @@ public class Room {
      */
     private String getExitString() {
         String returnString = "Exits:";
-        Set<String> keys = exits.keySet();
-        for (String exit : keys) {
-            returnString += " " + exit;
+        for(Door door : getDoors()) {
+            returnString += " " + door.getName();
         }
         return returnString;
     }
@@ -92,7 +103,19 @@ public class Room {
      * @return The room in the given direction.
      */
     public Room getExit(String direction) {
-        return exits.get(direction);
+        return doorsHash.get(direction);
+    }
+    
+    /**
+     * Get the Door of the room
+     */
+    public Door getDoor(String doorName){
+        for (Door door : getDoors()){
+            if (door.getName().equals(doorName)){
+                return door;
+            }
+        }
+        return null;
     }
     
     /**
@@ -148,6 +171,20 @@ public class Room {
         Item res = item;
         item = null;
         return res;
+    }
+
+    /**
+     * @return the doors
+     */
+    public ArrayList<Door> getDoors() {
+        return doors;
+    }
+
+    /**
+     * @param doors the doors to set
+     */
+    public void setDoors(ArrayList<Door> doors) {
+        this.doors = doors;
     }
   
 }
