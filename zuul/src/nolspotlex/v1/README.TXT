@@ -53,7 +53,7 @@
   * CLASSES / ENUM
   ----------------
   
-  - Item												: Nolan Potier
+  - Item (Genericity starting from useKey and takeKey)	: Nolan Potier
   - Type (enum of rooms)	 							: Alexandre Boursier
   - Character 											: Nolan Potier
   - Trap												: Alexandre Boursier
@@ -69,7 +69,6 @@
   - Main (Main class) 									: Alexandre Boursier
   - Key (takeKey, useKey) 								: Alexandre Boursier
 
-  
   * TESTS
   --------
   
