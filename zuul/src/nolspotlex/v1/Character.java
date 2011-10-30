@@ -4,7 +4,7 @@ package nolspotlex.v1;
  * This class is part of the "World of NolsPotLex" application. "World of NolsPotLex" is a
  * very simple, text based adventure game.
  * 
- * A "Character" represents one person in the scenery of the game. He can give you some indication.
+ * A "Character" represents a person in the scenery of the game. He can give you some indications.
  * 
  * @author Alexandre Boursier & Nolan Potier
  * @version 2011.10.25
@@ -15,6 +15,14 @@ public class Character {
     private String dialogue;
     private boolean hasSpoken;
 
+    /**
+     * Create a character object. First and second words must be supplied.
+     * 
+     * @param name
+     *          The name of the character 
+     * @param dialogue
+     *          The tip he will give to the player  
+     */
     public Character(String name, String dialogue) {
         this.name = name;
         this.dialogue = dialogue;
