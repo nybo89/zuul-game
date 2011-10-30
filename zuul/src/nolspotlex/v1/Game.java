@@ -1,6 +1,7 @@
 package nolspotlex.v1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -44,12 +45,16 @@ public class Game {
     private static boolean door_unlocked = false;	
     private static Room randomRoom;
     private static Room beamerRoom;
+    private HashMap<String, Item> items;
 
     /**
      * Create the game and initialize its internal map.
      */
     public Game() {
         rooms = new ArrayList<Room>();
+        items = new HashMap<String, Item>();        
+        
+        createItems();
         numberOfMoves = 0;
         setPlayer(new Player());
         createRooms();
@@ -69,6 +74,7 @@ public class Game {
         // Create the rooms
         bedroom = new Room("in the bedroom", Type.BEDROOM);
         delivery_room = new Room("in the delivery room --- There is a key on the table...", Type.DELIVERY_ROOM);
+        delivery_room.addItem(items.get("key"));
         intense_care_room = new Room("In the intense care room", Type.INTENSE_CARE_ROOM);
         corridor = new Room("in the corridor", Type.CORRIDOR);
         parking = new Room("in the parking, but not outside...", Type.PARKING);
@@ -124,6 +130,13 @@ public class Game {
         getPlayer().setCurrentRoom(bedroom); 
         beamerRoom = bedroom;
         randomRoom = toilets;
+    }
+    
+    private void createItems() {
+        Item key;
+        key = new Item("Key", "This key can open a door...");
+        
+        items.put(key.getName().toLowerCase(), key);
     }
 
     /**

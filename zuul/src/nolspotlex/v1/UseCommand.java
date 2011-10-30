@@ -24,7 +24,7 @@ public class UseCommand extends Command
         if (!hasSecondWord()) {
             System.out.println("use what?");
         } 
-        else if (!getSecondWord().equals("key")){
+        else if (player.getItems().get(getSecondWord().toLowerCase()) == null){
             System.out.println("There is nothing to use like that !");
         }
         else if (!player.getCurrentRoom().getType().equals(Type.RECEPTION))

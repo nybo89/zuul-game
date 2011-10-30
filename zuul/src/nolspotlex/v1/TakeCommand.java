@@ -21,10 +21,13 @@ public class TakeCommand extends Command
     @Override
     public boolean execute(Player player)
     {
-        if (!hasSecondWord()) {
+        if(player.getCurrentRoom().getItem() == null) {
+            System.out.println("There is nothing to take there !");
+        }
+        else if (!hasSecondWord()) {
             System.out.println("take what?");
         } 
-        else if (!getSecondWord().equals("key")){
+        else if (! getSecondWord().equals(player.getCurrentRoom().getItem().getName().toLowerCase())){
             System.out.println("There is nothing like that to take !");
         }
         else if (!player.getCurrentRoom().getType().equals(Type.DELIVERY_ROOM))
@@ -34,6 +37,8 @@ public class TakeCommand extends Command
         {
             if(!Game.hasGot_key())
             {
+                player.addItem(player.getCurrentRoom().takeItem());     
+                
                 System.out.println("You've just found the Golden Key ! :) ");
                 System.out.println("Use it the right way");
                 for (Room r : Game.getRooms())
