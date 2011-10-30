@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nolspotlex.v1;
 
 import static org.junit.Assert.*;
@@ -12,8 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @author aboursie
- *
+ * Testing for the class Trap
+ * @author Alexandre Boursier & Nolan Potier
+ * @version 2011.10.28
  */
 public class TrapTest {
 
