@@ -88,6 +88,7 @@
   - Character 											: Nolan Potier
   - Trap												: Alexandre Boursier
   - Game												: Alexandre Boursier
+  - Player												: Alexandre Boursier
   
   
   () = methods
