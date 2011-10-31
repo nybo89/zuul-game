@@ -10,6 +10,7 @@ import org.junit.Test;
 
 /**
  * Testing for the class Game
+ * It also includes all the COMMAND TESTS (BEAMER,USE,TAKE,GO,HELP,QUIT)
  * @author Alexandre Boursier & Nolan Potier
  * @version 2011.10.28
  */
@@ -90,10 +91,10 @@ public class GameTest {
 
         ok = Game.getPlayer().goRoom("east");
         // Inc one time with counting a moove
-        assertTrue(Game.countMove());
+        assertFalse(Game.countMove());
         ok = Game.getPlayer().goRoom("east");
         assertEquals(G.getNumberOfMoves(), G.getLimitOfMoves());
-        assertFalse(Game.countMove());
+        assertTrue(Game.countMove());
     }
     
     /**

@@ -338,7 +338,6 @@ public class Game {
         return randomRoom;
     }
 
-
     /**
      * @param randomRoom the randomRoom to set
      */
@@ -346,14 +345,12 @@ public class Game {
         randomRoom = random;
     }
 
-
     /**
      * @return the beamerRoom
      */
     public static Room getBeamerRoom() {
         return beamerRoom;
     }
-
 
     /**
      * @param beamerRoom the beamerRoom to set
