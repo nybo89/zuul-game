@@ -9,7 +9,7 @@ package nolspotlex.v1;
 public class HelpCommand extends Command
 {
     private CommandWords commandWords;
-    
+
     /**
      * Constructor for objects of class HelpCommand
      */
@@ -17,7 +17,7 @@ public class HelpCommand extends Command
     {
         commandWords = words;
     }
-    
+
     /**
      * Print out some help information. Here we print some stupid, 
      * cryptic message and a list of the command words.

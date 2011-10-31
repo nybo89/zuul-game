@@ -13,8 +13,8 @@ import java.util.HashMap;
  * to other rooms via exits. For each existing exit, the room stores a reference
  * to the neighboring room.
  * 
- * @author Michael Kolling and David J. Barnes
- * @version 2008.03.30
+ * @author Michael Kolling and David J. Barnes and Alexandre Boursier and Nolan Potier
+ * @version 2011.10.28
  */
 
 public class Room {
@@ -53,14 +53,13 @@ public class Room {
     /*public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }*/
-    
+
     public void setDoor(String doorName, Room neighbor, Boolean isLocked){
         Door door = new Door(doorName);
         door.setLock(isLocked);
         getDoors().add(door);
         doorsHash.put(doorName, neighbor);
     }
-    
 
     /**
      * @return The short description of the room (the one that was defined in
@@ -105,7 +104,7 @@ public class Room {
     public Room getExit(String direction) {
         return doorsHash.get(direction);
     }
-    
+
     /**
      * Get the Door of the room
      */
@@ -117,7 +116,7 @@ public class Room {
         }
         return null;
     }
-    
+
     /**
      * Add a character to the room
      * @param person
@@ -147,7 +146,7 @@ public class Room {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     /**
      * Add a item to the room 
      * @param item
@@ -155,7 +154,7 @@ public class Room {
     public void addItem(Item item) {
         this.item = item;
     }
-    
+
     /**
      * 
      * @return item of the room
@@ -163,7 +162,7 @@ public class Room {
     public Item getItem() {
         return item;
     }
-   
+
     /**
      * 
      */
@@ -186,5 +185,5 @@ public class Room {
     public void setDoors(ArrayList<Door> doors) {
         this.doors = doors;
     }
-  
+
 }
