@@ -3,14 +3,14 @@ package nolspotlex.v1;
 import java.util.HashMap;
 
 /**
- * This class is part of the "World of Zuul" application. "World of Zuul" is a
+ * This class is part of the "NolsPotLex" application. "NolsPotLex" is a
  * very simple, text based adventure game.
  * 
  * This class holds an enumeration of all command words known to the game. It is
  * used to recognise commands as they are typed in.
  * 
- * @author Michael Kolling and David J. Barnes
- * @version 2008.03.30
+ * @author Michael Kolling and David J. Barnes and aAlexandre Boursier and Nolan Potier
+ * @version 2011.10.28
  */
 
 public class CommandWords {
@@ -34,7 +34,7 @@ public class CommandWords {
 
     /**
      * Given a command word, find and return the matching command object.
-     * Return null if there is no command with this name.
+     * Return null if there is no command with the given name
      */
     public Command get(String word)
     {
@@ -42,12 +42,12 @@ public class CommandWords {
     }
 
     /**
-     * Print all valid commands to System.out.
+     * Print all valid commands 
      */
     public void showAll() 
     {
         for (Object element : commands.keySet()) {
-            System.out.print(element + "  ");
+            System.out.print(element + " - ");
         }
         System.out.println();
     }

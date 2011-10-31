@@ -35,10 +35,10 @@ public class TakeCommand extends Command
             System.out.println("There is nothing to take there !");             }
         else
         {
-                System.out.println("You've just found " + player.getCurrentRoom().getItem().getName()  + " ! :) ");
-                System.out.println(player.getCurrentRoom().getItem().getDescription());
-                
-                player.addItem(player.getCurrentRoom().takeItem());
+            System.out.println("You've just found " + player.getCurrentRoom().getItem().getName()  + " ! :) ");
+            System.out.println(player.getCurrentRoom().getItem().getDescription());
+
+            player.addItem(player.getCurrentRoom().takeItem());
         }
         return false;
     }

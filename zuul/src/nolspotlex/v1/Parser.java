@@ -45,13 +45,13 @@ public class Parser {
         System.out.print("> ");     // print prompt
 
         BufferedReader reader = 
-            new BufferedReader(new InputStreamReader(System.in));
+                new BufferedReader(new InputStreamReader(System.in));
         try {
             inputLine = reader.readLine();
         }
         catch(java.io.IOException exc) {
             System.out.println ("There was an error during reading: "
-                                + exc.getMessage());
+                    + exc.getMessage());
         }
 
         StringTokenizer tokenizer = new StringTokenizer(inputLine);

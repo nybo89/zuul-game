@@ -16,14 +16,15 @@ public class GoCommand extends Command
     /** 
      * Try to go to one direction. If there is an exit, enter the new
      * room, otherwise print an error message. 
-     * Returns always 'false'.
+     * Returns 'false' when games continue, 'true' otherwise;
      */
     @Override
     public boolean execute(Player player)
     {
         if(hasSecondWord()) {
             String direction = getSecondWord();
-            player.goRoom(direction);
+            boolean decision = player.goRoom(direction);
+            return decision;
         }
         else {
             // if there is no second word, we don't know where to go...

@@ -1,7 +1,7 @@
 package nolspotlex.v1;
 
 /**
- * This class is part of the "World of Zuul" application. "World of Zuul" is a
+ * This class is part of the "NolsPotLex" application. "NolsPotLex" is a
  * very simple, text based adventure game.
  * 
  * This class holds information about a command that was issued by the user. A
@@ -15,17 +15,17 @@ package nolspotlex.v1;
  * 
  * If the command had only one word, then the second word is <null>.
  * 
- * @author Michael Kolling and David J. Barnes 
- * @version 2008.03.30
+ * @author Michael Kolling and David J. Barnes and Alexandre Boursier and Nolan Potier
+ * @version 2011.10.28
  */
 
 public abstract class Command {
     private String secondWord;
 
     /**
-     * Create a command object. First and second word must be supplied, but
-     * either one (or both) can be null. The command word should be null to
-     * indicate that this was a command that is not recognised by this game.
+     * Create a command object. 
+     * 
+     * The command word should be null to tell the command is UNKNOWN
      */
     public Command()
     {
@@ -51,9 +51,7 @@ public abstract class Command {
     }
 
     /**
-     * Define the second word of this command (the word
-     * entered after the command word). Null indicates that 
-     * there was no second word.
+     * Define the second word of thie command
      */
     public void setSecondWord(String secondWord)
     {
@@ -61,9 +59,9 @@ public abstract class Command {
     }
 
     /**
-     * Execute this command. A flag is returned indicating whether
-     * the game is over as a result of this command.
-     * 
+     * Execute the current command. 
+     * A flag is returned indicating :
+     *  
      * @return True, if game should exit; false otherwise.
      */
     public abstract boolean execute(Player player);

@@ -31,7 +31,7 @@ public class Player
     {
         return currentRoom;
     }
-    
+
     /**
      * Set the current room for this player.
      */
@@ -39,7 +39,7 @@ public class Player
     {
         currentRoom = room;
     }
-    
+
     /**
      * Try to go to one direction. If there is an exit, enter the new room,
      * otherwise print an error message.
@@ -68,11 +68,12 @@ public class Player
         if(currentRoom.getDoor(direction).isLocked()) {
             if(items.get("Key")==null) {
                 System.out.println("Sorry but the door is locked ! you have to find the key somewhere over the rainbow..");
-                return true;
+                boolean decision = Game.countMove();     
+                return decision;
             }
             else {
                 System.out.println("You have to open the door to get out of there !");
-                return true;
+                return false;
             }
         }
         else {
@@ -89,7 +90,7 @@ public class Player
             if(currentRoom.equals(Game.getRandomRoom())) {
                 Game.goRandomRoom();
             }
-      
+
             // Check if the player is in the trap room and if he has already been there
             // Yes : the game continues normally
             // No  : he falls into the trap
@@ -106,14 +107,14 @@ public class Player
                 }       
                 Trap.setIs_catched_by_trap(true);
             }
-            
+
             // Check if the nextroom is the final exit
             if (currentRoom.getType().equals(Type.OUTSIDE)) {
                 System.out.println("The outside checkpoint has been reached ! ");
                 System.out.println("You have won the game, well done Indiana ;)");
                 System.out.println();
                 System.out.println();
-                return false;
+                return true;
             }
             System.out.println(currentRoom.getLongDescription());
         }
@@ -134,7 +135,7 @@ public class Player
     public void setItems(HashMap<String, Item> items) {
         this.items = items;
     }
-    
+
     public void addItem(Item item) {
         items.put(item.getName().toLowerCase(), item);
     }

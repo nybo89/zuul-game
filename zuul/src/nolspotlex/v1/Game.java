@@ -39,12 +39,12 @@ public class Game {
     private static final int NB_ROOM_TELEPORT = 8;
     // Build a list which contains all the current rooms of the game
     private static ArrayList<Room> rooms;
-    	
+
     private static Room randomRoom;
     private static Room beamerRoom;
     private HashMap<String, Item> items;
     private ArrayList<Door> doors;
-    
+
     private Room bedroom, delivery_room, intense_care_room, corridor, parking,
     toilets, reception, waiting_room, restaurant, outside,
     trap_room,way_to_go;
@@ -57,7 +57,7 @@ public class Game {
         items = new HashMap<String, Item>();  
         doors = new ArrayList<Door>();
         numberOfMoves = 0;
-        
+
         createItems();
         createDoors();        
         setPlayer(new Player());
@@ -88,7 +88,6 @@ public class Game {
         trap_room = new Room("in a dark room with strange noises.. Get out of here now !", Type.TRAP_ROOM);
         way_to_go = new Room("in another room close to a such familiar place...", Type.WAY_TO_GO);
 
-        
 
         //Create character
         //
@@ -101,20 +100,20 @@ public class Game {
         beamerRoom = bedroom;
         randomRoom = toilets;
     }
-    
+
     private void createItems() {
         Item key;
         key = new Item("Key", "This key can open a door...");
-        
+
         items.put(key.getName().toLowerCase(), key);
     }
-    
+
     /**
      * Initialise room doors and respective locks
      */
     private void setRoomsDoors(){        
-        
-     // Initialise room exits
+
+        // Initialise room exits
         bedroom.setDoor("east", intense_care_room, false);
         bedroom.setDoor("west", delivery_room, false);
         bedroom.setDoor("south", corridor, false);
@@ -145,33 +144,34 @@ public class Game {
 
         // Initialize the trap way
         trap_room.setDoor("up", way_to_go, false);
-
-        way_to_go.setDoor("up", bedroom, true);
+        way_to_go.setDoor("up", bedroom, false);
     }
-    
+
     /**
      * Create the Doors for the game.
      */
     private void createDoors(){
-        Door north, east, south, west;
+        Door north, east, south, west,up;
 
         north = new Door("north");
         east = new Door("east");
         south = new Door("south");
         west = new Door("west");
+        // To get out of the trap
+        up = new Door("up");
 
         //add each door to doors collection
         doors.add(north);
         doors.add(east);
         doors.add(south);
         doors.add(west);
+        doors.add(up);
     }
-    
+
     /**
      * Add items to the rooms
      */
     private void addItemsToRooms(){
-
         delivery_room.addItem(items.get("key"));
     }
 
@@ -275,12 +275,14 @@ public class Game {
         if (numberOfMoves < limitOfMoves) {
             System.out.println("Current number of moves : " + numberOfMoves);
             System.out.println("Moves left : " + (limitOfMoves - numberOfMoves));
-            return true;
+            return false;
             // Ending the game if the number of moves is reached
         } else {
             System.out.println("You have reached the maximum number of moves");
             System.out.println("By the way, GAME OVER ! ");
-            return false;
+            System.out.println();
+            System.out.println();
+            return true;
         }
     }
 
@@ -344,14 +346,14 @@ public class Game {
         randomRoom = random;
     }
 
-  
+
     /**
      * @return the beamerRoom
      */
     public static Room getBeamerRoom() {
         return beamerRoom;
     }
-    
+
 
     /**
      * @param beamerRoom the beamerRoom to set
