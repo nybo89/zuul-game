@@ -1,0 +1,18 @@
+- DoorTest
+- Item (je pense que execute item tu devrais l'appeller useItem pour le moment, parce que ça porte confusion avec
+la méthode abstraite de commande)
+
+- Trouver bug avec "up" dans doors.
+
+- Regénérer la javadoc en fin de semaine
+
+- Give detailed indications on how to compile and run the project from the command line.
+
+-Answer the question: what is the difference between the withenums.v1 andwithenums.v2 versions? 
+Which is better and why?
+
+
+_______________________________________________________________________________________________
+
+QUAND TU AS FINIS TU PEUX ENLEVER DE LA LISTE ET METTRE DANS LE README.TXT CE QUE TU AS FAIS
+_______________________________________________________________________________________________

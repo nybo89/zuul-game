@@ -70,6 +70,8 @@ public class GameTest {
         assertEquals(0, G.getNumberOfMoves());
         // 12 rooms have been created
         assertEquals(12, rooms.size());
+        assertEquals(Type.TOILETS, Game.getRandomRoom().getType());
+        assertEquals(Type.BEDROOM, Game.getBeamerRoom().getType());
     }
 
     /**
@@ -96,7 +98,7 @@ public class GameTest {
         assertEquals(G.getNumberOfMoves(), G.getLimitOfMoves());
         assertTrue(Game.countMove());
     }
-    
+
     /**
      * Test method for {@link nolspotlex.v1.Game#takeKey()}.
      */
@@ -124,7 +126,7 @@ public class GameTest {
             if (r.getType().equals(Type.PARKING))
                 Trap.setChosen_trap(r);
         }
-        
+
         // Go into the delivery_room (at the west of the bedroom (the key is there))
         ok = Game.getPlayer().goRoom("west");
         take.setSecondWord("key");
@@ -137,7 +139,7 @@ public class GameTest {
         ok = Game.getPlayer().goRoom("west");
         use.setSecondWord("key");
         use.execute(Game.getPlayer());
-        
+
         assertFalse(Game.getPlayer().getCurrentRoom().getDoor("south").isLocked());
     }
 
