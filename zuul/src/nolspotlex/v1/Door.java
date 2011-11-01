@@ -9,7 +9,7 @@ public class Door {
      * @param name is the name of the door.
      */
     public Door(String name){
-        this.setName(name);
+        this.name = name;
         isLocked = false;
     }
 
@@ -27,29 +27,6 @@ public class Door {
      */
     public Boolean isLocked(){
         return isLocked;
-    }
-
-    /**
-     * In order to lock / unlock both sides at the same time we have to
-     * reverse the name of the door in the exit Room (e.g. north -> south).
-     * If we do not use orientation based names for the Doors, then the
-     * function assumes that the Door has the same name in both Rooms.
-     */
-    public String rvDoorName(){
-        if (getName().equals("east")){
-            return "west";
-        }
-        else if (getName().equals("west")){
-            return "east";
-        }
-        else if (getName().equals("north")){
-            return "south";
-        }
-        else if (getName().equals("south")){
-            return "north";
-        }
-        // otherwise assume the same doorName for both Rooms
-        return getName();
     }
 
     /**

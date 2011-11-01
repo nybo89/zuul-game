@@ -142,5 +142,13 @@ public class GameTest {
 
         assertFalse(Game.getPlayer().getCurrentRoom().getDoor("south").isLocked());
     }
+    
+    @Test
+    public void testGoRandomRoom() {
+        Room old = Game.getPlayer().getCurrentRoom();
+        assertTrue(old.equals(Game.getPlayer().getCurrentRoom()));
+        Game.goRandomRoom();
+        assertFalse(old.equals(Game.getPlayer().getCurrentRoom()));
+    }
 
 }
