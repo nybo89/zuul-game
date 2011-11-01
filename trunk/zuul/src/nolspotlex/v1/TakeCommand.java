@@ -30,9 +30,6 @@ public class TakeCommand extends Command
         else if (! getSecondWord().equals(player.getCurrentRoom().getItem().getName().toLowerCase())){
             System.out.println("There is nothing like that to take !");
         }
-        else if (!player.getCurrentRoom().getType().equals(Type.DELIVERY_ROOM))
-        {
-            System.out.println("There is nothing to take there !");             }
         else
         {
             System.out.println("You've just found " + player.getCurrentRoom().getItem().getName()  + " ! :) ");
