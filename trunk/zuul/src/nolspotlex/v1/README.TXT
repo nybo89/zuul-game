@@ -60,11 +60,12 @@
   
   - Game												: Both
   - Room												: Both
-  - Item (Genericity starting from useKey and takeKey)	: Nolan Potier
+  - Item (Genericity starting from useItem and takeItem): Nolan Potier
   - Door												: Nolan Potier
   - Character 											: Nolan Potier
   - Trap												: Alexandre Boursier
   - GoCommand,QuitCommand,HelpCommand,UseCommand, etc.	: Alexandre Boursier
+  - Genericity for UseCommand and TakeCommand			: Nolan Potier
   - Type (enum of rooms)	 							: Alexandre Boursier
   - Player												: Alexandre Boursier
   
@@ -80,7 +81,7 @@
   - Altering CommandWord, CommandWords					: Alexandre Boursier
   - Moves limit (chooseLevel, countMove, get', set') 	: Alexandre Boursier
   - Main (Main class) 									: Alexandre Boursier
-  - Key (takeKey, useKey) 								: Alexandre Boursier
+  - Item option (takeItem, useItem) 					: Both
 
   * TESTS
   --------
@@ -89,6 +90,7 @@
   - Trap												: Alexandre Boursier
   - Game												: Alexandre Boursier
   - Player												: Alexandre Boursier
+  - Door												: Nolan Potier
   
   
   () = methods

@@ -149,14 +149,16 @@ public class GameTest {
     @Test
     public void testGoRandomRoom() {
 
+        
         // Ensure there is no trap on the way
         for(Room r : rooms)
         {
             if (r.getType().equals(Type.PARKING))
                 Trap.setChosen_trap(r);
         }
-
-        assertTrue(old.equals(Game.getPlayer().getCurrentRoom()));
+        
+        Game.getPlayer().setCurrentRoom(Game.getRandomRoom());
+        old = Game.getPlayer().getCurrentRoom();
         Game.goRandomRoom();
         assertFalse(old.equals(Game.getPlayer().getCurrentRoom()));
     }
