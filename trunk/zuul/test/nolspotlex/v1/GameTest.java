@@ -23,6 +23,7 @@ public class GameTest {
     TakeCommand take;
     UseCommand use;
     Command command;
+    Room old;
 
     /**
      * @throws java.lang.Exception
@@ -43,6 +44,7 @@ public class GameTest {
         G.setLimitOfMoves(50);
         take = new TakeCommand();
         use = new UseCommand();
+        old = Game.getPlayer().getCurrentRoom();
     }
 
     /**
@@ -58,6 +60,7 @@ public class GameTest {
         take = null;
         use = null;
         command = null;
+        old = null;
     }
 
     /**
@@ -142,10 +145,17 @@ public class GameTest {
 
         assertFalse(Game.getPlayer().getCurrentRoom().getDoor("south").isLocked());
     }
-    
+
     @Test
     public void testGoRandomRoom() {
-        Room old = Game.getPlayer().getCurrentRoom();
+
+        // Ensure there is no trap on the way
+        for(Room r : rooms)
+        {
+            if (r.getType().equals(Type.PARKING))
+                Trap.setChosen_trap(r);
+        }
+
         assertTrue(old.equals(Game.getPlayer().getCurrentRoom()));
         Game.goRandomRoom();
         assertFalse(old.equals(Game.getPlayer().getCurrentRoom()));
