@@ -13,7 +13,7 @@
 -Answer the question: what is the difference between the withenums.v1 andwithenums.v2 versions? 
 Which is better and why?
 
-The String of commands are constants and depend on the language player.
-In the v1, the constants ("GO", "HELP") are put into the CommandWords class in the constructor 
-of object whereas in the v2 they are put in the CommandWord enum.
-By convention it's better putting the constants in a enum than a class.
+	The String of commands are constants and depend on the language player.
+	In the v1, the constants ("GO", "HELP") are put into the CommandWords class in the constructor 
+	of object whereas in the v2 they are put in the CommandWord enum.
+	By convention it's better putting the constants in a enum than a class.
