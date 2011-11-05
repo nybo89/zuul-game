@@ -27,7 +27,7 @@ public class UseCommand extends Command
         else if (player.getItems().get(getSecondWord().toLowerCase()) == null){
             System.out.println("There is nothing to use like that !");
         }
-        else if (!player.getItems().get(getSecondWord().toLowerCase()).executeItem(player)) {
+        else if (!player.getItems().get(getSecondWord().toLowerCase()).useItem(player)) {
             System.out.println("There is nothing to use there !");              
         }
         return false;

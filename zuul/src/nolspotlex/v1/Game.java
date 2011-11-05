@@ -100,7 +100,10 @@ public class Game {
         beamerRoom = bedroom;
         randomRoom = toilets;
     }
-
+    
+    /**
+     * Initialise items
+     */
     private void createItems() {
         Item key;
         key = new Item("Key", "This key can open a door...");

@@ -1,15 +1,26 @@
-- DoorTest
-- Item (je pense que execute item tu devrais l'appeller useItem pour le moment, parce que ça porte confusion avec
-la méthode abstraite de commande)
-
 - Trouver bug avec "up" dans doors.
 
 - Regénérer la javadoc en fin de semaine
 
 - Give detailed indications on how to compile and run the project from the command line.
 
+	Compile all class of project with the command line :
+	
+	Javac *.Java
+	
+	Execute the main of project
+	
+	java nolspotlex.v1.Main
+	
+
 -Answer the question: what is the difference between the withenums.v1 andwithenums.v2 versions? 
 Which is better and why?
+
+The String of commands are constants and depend to language player.
+In the v1 the constants ("GO", "HELP") are put in the CommandWords class in the constructor of object whereas in the v2 they are put 
+in the CommandWord enum.
+By convention it's more correctly to put the constants in a enum that a class.
+
 
 
 _______________________________________________________________________________________________

@@ -135,7 +135,11 @@ public class Player
     public void setItems(HashMap<String, Item> items) {
         this.items = items;
     }
-
+    
+    /**
+     * Add a item to inventory of player.
+     * @param item
+     */
     public void addItem(Item item) {
         items.put(item.getName().toLowerCase(), item);
     }

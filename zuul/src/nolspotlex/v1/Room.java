@@ -156,7 +156,7 @@ public class Room {
     }
 
     /**
-     * 
+     * Get the item.
      * @return item of the room
      */
     public Item getItem() {
@@ -164,7 +164,8 @@ public class Room {
     }
 
     /**
-     * 
+     * Take the item of room.
+     * @return item of the room
      */
     public Item takeItem() {
         Item res = item;
