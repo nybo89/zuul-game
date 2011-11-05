@@ -1,13 +1,11 @@
 
 - Give detailed indications on how to compile and run the project from the command line.
 
-	Compile all class of project with the command line :
-	
-	Javac *.Java
-	
-	Execute the main of project
-	
-	java nolspotlex.v1.Main
+	Compile all class of project with the command Javac.
+		
+	Go to src folder and Execute the main of project with the command line :
+		
+		java nolspotlex.v1.Main
 	
 
 -Answer the question: what is the difference between the withenums.v1 andwithenums.v2 versions? 
