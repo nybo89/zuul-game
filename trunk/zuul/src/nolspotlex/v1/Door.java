@@ -1,7 +1,17 @@
 package nolspotlex.v1;
 
+/**
+ * This class is part of the "World of NolsPotLex" application. "World of NolsPotLex" is a
+ * very simple, text based adventure game.
+ * 
+ * A "Door" represents an exit in room of the scenery of the game.
+ * 
+ * @author Alexandre Boursier & Nolan Potier
+ * @version 2011.10.25
+ */
+
 public class Door {
-    private String name; //peut être remplacer par un enum Direction
+    private String name;
     private Boolean isLocked;
 
     /**
