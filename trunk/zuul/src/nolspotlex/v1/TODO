@@ -1,6 +1,3 @@
-- Trouver bug avec "up" dans doors.
-
-- Regénérer la javadoc en fin de semaine
 
 - Give detailed indications on how to compile and run the project from the command line.
 
@@ -16,14 +13,7 @@
 -Answer the question: what is the difference between the withenums.v1 andwithenums.v2 versions? 
 Which is better and why?
 
-The String of commands are constants and depend to language player.
-In the v1 the constants ("GO", "HELP") are put in the CommandWords class in the constructor of object whereas in the v2 they are put 
-in the CommandWord enum.
-By convention it's more correctly to put the constants in a enum that a class.
-
-
-
-_______________________________________________________________________________________________
-
-QUAND TU AS FINIS TU PEUX ENLEVER DE LA LISTE ET METTRE DANS LE README.TXT CE QUE TU AS FAIS
-_______________________________________________________________________________________________
+The String of commands are constants and depend on the language player.
+In the v1, the constants ("GO", "HELP") are put into the CommandWords class in the constructor 
+of object whereas in the v2 they are put in the CommandWord enum.
+By convention it's better putting the constants in a enum than a class.
