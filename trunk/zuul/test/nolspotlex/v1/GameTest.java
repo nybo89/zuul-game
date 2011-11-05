@@ -148,7 +148,7 @@ public class GameTest {
 
     @Test
     public void testGoRandomRoom() {
-
+        
         
         // Ensure there is no trap on the way
         for(Room r : rooms)
