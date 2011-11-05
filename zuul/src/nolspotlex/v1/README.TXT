@@ -1,4 +1,5 @@
- ---------------------------------------------------- Project NolspotLex-----------------------------------------------------------
+ 
+---------------------------------------------------- Project NolspotLex-----------------------------------------------------------
  
  This project is base on the "World of Zuul" project, similar to the Zork game.
  This game is based on the moving of a player through different rooms. The objective is obviously to find the exit door in order
@@ -63,9 +64,9 @@
   - Item (Genericity starting from useItem and takeItem): Nolan Potier
   - Door												: Nolan Potier
   - Character 											: Nolan Potier
+  - Genericity for UseCommand and TakeCommand			: Nolan Potier
   - Trap												: Alexandre Boursier
   - GoCommand,QuitCommand,HelpCommand,UseCommand, etc.	: Alexandre Boursier
-  - Genericity for UseCommand and TakeCommand			: Nolan Potier
   - Type (enum of rooms)	 							: Alexandre Boursier
   - Player												: Alexandre Boursier
   
@@ -74,6 +75,7 @@
   
   - Altering createRoom, processCommand,  				: Both
   - addRoom 											: Both
+  - Item option (takeItem, useItem) 					: Both
   - Beamer (beamer)                       				: Nolan Potier
   - Random teleport (goRandomRoom) 						: Nolan Potier
   - Doors in game (setRoomsDoors,createDoors)			: Nolan Potier
@@ -81,16 +83,16 @@
   - Altering CommandWord, CommandWords					: Alexandre Boursier
   - Moves limit (chooseLevel, countMove, get', set') 	: Alexandre Boursier
   - Main (Main class) 									: Alexandre Boursier
-  - Item option (takeItem, useItem) 					: Both
+
 
   * TESTS
   --------
   
   - Character 											: Nolan Potier
+  - Door												: Nolan Potier
   - Trap												: Alexandre Boursier
   - Game												: Alexandre Boursier
   - Player												: Alexandre Boursier
-  - Door												: Nolan Potier
   
   
   () = methods
